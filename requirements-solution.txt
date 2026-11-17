@@ -1,0 +1,7 @@
+-r requirements.txt
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+scikit-learn==1.9.1
+kloppy==3.19.1
+numba==0.68.0

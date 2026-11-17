@@ -1,3 +1,40 @@
+# Possession solution: `Cosmos`
+
+This repository is a fork of the More Than A Hack 2027 challenge repository. The challenge files (docs, `games.py`, `evaluation/`, `starter/`) are unchanged. The solution adds:
+
+| Path | Purpose |
+|---|---|
+| `possession/` | Library: loaders, labels, degradation, features, classifier, decoder, metrics |
+| `train.py` | Trains the classifier and tunes the decoder on Metrica's open sample games; writes `models/` |
+| `predict.py` | Labels BAR-ATH; writes `submission/<team_name>.csv` |
+| `make_submission.sh` | Runs everything end to end and validates the file |
+| `requirements-solution.txt` | Pinned dependencies (Python 3.13) |
+| `TECHNICAL.md` | Technical document |
+
+## Reproduce the submission
+
+1. Put the match data in `data/` (see [DATA.md](DATA.md)), or set `MTAH_DATA_DIR`.
+2. Install the pinned dependencies and run the pipeline:
+
+```bash
+pip install -r requirements-solution.txt
+./make_submission.sh <team_name>
+```
+
+The same steps by hand:
+
+```bash
+git clone https://github.com/metrica-sports/sample-data external/sample-data
+git -C external/sample-data checkout e706dd506b360d69d9d123d5b8026e7294b13996
+python train.py                       # about 5 min: writes models/
+python predict.py --team <team_name>  # about 3 min: writes submission/<team_name>.csv
+python evaluation/validate_submission.py submission/<team_name>.csv
+```
+
+`models/`, `submission/` and `external/` are generated and git-ignored. No match data or trained weights are committed.
+
+---
+
 # More than a Hack 2027 — Phase 1: Ball Possession
 
 **Organised by [Metrica Sports](https://metrica-sports.com), [FC Barcelona](https://www.fcbarcelona.com)
